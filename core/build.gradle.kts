@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -40,6 +41,15 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     api(libs.androidx.compose.ui)
     api(libs.androidx.hilt.navigation.compose)
+    // Room runtime
+    implementation("androidx.room:room-runtime:2.6.1")
+
+    // Kotlin extensions and coroutines support
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    // KSP compiler (REQUIRED)
+    ksp("androidx.room:room-compiler:2.6.1")
+    //implementation("androidx.room:room-paging:2.6.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

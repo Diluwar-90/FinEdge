@@ -1,12 +1,9 @@
 package com.finedge.feature.dashboard
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.finedge.feature.dashboard.presentation.DashboardScreen
 
 
 fun NavGraphBuilder.dashboardGraph(navController: NavHostController) {
@@ -15,7 +12,3 @@ fun NavGraphBuilder.dashboardGraph(navController: NavHostController) {
     }
 }
 
-@Composable
-fun DashboardScreen() {
-    Text("Dashboard")
-}
