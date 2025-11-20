@@ -91,7 +91,7 @@ fun AddExpenseScreen(
                         strokeWidth = 2.dp
                     )
                 } else {
-                    Text("Save Expense")
+                    Text("Save Expense details")
                 }
             }
         }
