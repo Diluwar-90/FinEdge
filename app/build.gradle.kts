@@ -4,6 +4,25 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    jacoco
+}
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+tasks.register("jacocoTestReport", JacocoReport::class) {
+    dependsOn("testDebugUnitTest")
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+    classDirectories.setFrom(
+        fileTree("$buildDir/tmp/kotlin-classes/debug") {
+            exclude("**/Hilt_*.class")
+        }
+    )
+    sourceDirectories.setFrom(files("src/main/java"))
 }
 
 android {
