@@ -1,0 +1,34 @@
+default_platform(:android)
+
+platform :android do
+
+  desc "CI build for verification"
+  lane :ci_build do
+    gradle(task: "assembleDebug")
+  end
+
+  desc "Build signed AAB and upload to Firebase App Distribution"
+  lane :beta do
+    gradle(task: "clean bundleRelease")
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      release_notes: ENV["RELEASE_NOTES"] || "CI Beta Build",
+      testers: ENV["FIREBASE_TESTERS"] || "",
+      groups: ENV["FIREBASE_GROUPS"] || ""
+    )
+  end
+
+  desc "Build & upload AAB to Play Store internal track"
+  lane :release do
+    gradle(task: "clean bundleRelease")
+
+    supply(
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      track: ENV["PLAY_STORE_TRACK"] || "internal",
+      json_key: ENV["FASTLANE_JSON_KEY_PATH"],
+      package_name: "com.finedge"
+    )
+  end
+
+end
